@@ -33,10 +33,10 @@ K = [k1+k2 -k2; -k2 k2]; % Stiffness matrix
 % x = State Space Vector
 % u = Control input Vector
 
-u = [1 0].';
+b = [1 0].';
 
 A = [zeros(2) eye(2); -M\K -M\Cdamp];   % left divide for the inverse
-B = [zeros(2,1); M\u];                  % single input
+B = [zeros(2,1); M\b];                  % single input
 C = [1 0 0 0];                          % single output
 D = 0;
 sys = ss(A,B,C,D);

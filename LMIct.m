@@ -1,4 +1,5 @@
 %% LMI control toolbox
+close all
 clear
 clc
 load statespace.mat
