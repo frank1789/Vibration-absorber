@@ -157,7 +157,7 @@ we obtain the state space representation as below:
 \]
 
 \subsection{2}
-Setting \(u\,=\,0\) through the help of the \emph{sdpt3} solver the solution
+Setting \(u\,=\,0\) through the help of the ``\emph{sdpt3} " solver the solution
 was solved numerically, obtaining the solution from the Lyapunov inequality for
  \(\mathbf{P}\) given in the matrix \eqref{eq:valuep} is obtained.
  \begin{equation}
@@ -169,7 +169,11 @@ was solved numerically, obtaining the solution from the Lyapunov inequality for
 		-5.0157	&    0.6276	&    0.5233	&    1.1363
 	\end{bmatrix*}
 \end{equation}
-
+from the stability theorem linked to the eigenvalues that reports "\emph{the 
+linear and stationary system is asymptotically stable if and only if all its 
+eigenvalues have a real negative part}".\cite{bolzern2015fondamenti} 
+From the vector \eqref{eq:eigvalue} containing the eigenvectors it can be said 
+that the system is stable.
 \begin{equation}
 	\label{eq:eigvalue}
 	\begin{bmatrix*}[r]
@@ -183,9 +187,20 @@ was solved numerically, obtaining the solution from the Lyapunov inequality for
 \subsection{3}
 Using the LMI formulation\cite{notelmi} and using the ``\emph{sdpt3}" solver the
  \(\mathcal{L}_{2}\) value of the \(\gamma\) system is estimated.
-Where the minimum value assumed by \(\gamma\) is \num{0.5456e-3}.
+Where the minimum value assumed by \(\gamma\) is \num{0.5456e-3}, obtaining the
+solution from the Lyapunov inequality for
+ \(\mathbf{P}\) given in the matrix \eqref{eq:valuep2}.
+\begin{equation}
+\label{eq:valuep2}
+	\mathbf{P} = \num{1.0e+03}\cdot
+	\begin{bmatrix*}[r]
+    		2.5019  	& 	-0.4262   	&	-0.0144 	 & 	-0.0281\\
+   		-0.4262  	& 	 0.2806   	& 	0.0218   	& 		0.0038\\
+   		-0.0144   	& 	0.0218  	&  0.0137   	&		-0.0007\\
+   		-0.0281    	&	0.0038 	&  -0.0007   	&	 	0.0020\\
+   	\end{bmatrix*}
+\end{equation}
 Moreover, the same result was obtained using the matlab toolbox.
-
 \subsection{4}
 From the calculation of the transfer matrix \eqref{eq:tf}, calculated in, we
 obtain the Bode diagram in the figure \ref{fig:bodeplot}, where we can see that
