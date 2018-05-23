@@ -1,10 +1,140 @@
 \section{Exercise 1}
+\label{sec:problem}
+The vibration absorber \cite{rao2011mechanical}[Ch. 9.11], also called dynamic vibration absorber, is
+a mechanical device which is used to reduce or eliminate unwanted vibration.
+It consists of a mass and a spring attached to the main (or original) mass that
+needs to be protected from vibration. Vibration absorbers are commonly used in a
+variety of applications which include sanders, saws, internal combustion engines
+and high-voltage transmission lines. A sketch of the system is pictured in
+Figure \ref{fig:system}.
+%
+\begin{figure}[!h]
+	\centering
+	\begin{tikzpicture}[baseline=0.5\linewidth]
+%	\draw[help lines] (0,0) grid [step = 5 mm](15,15);
+%	\foreach \x in {0,1,...,15}
+%	   \draw [help lines] (\x,0) node [below,%
+%	          font=\footnotesize] {$\x$} -- (\x,0);
+%	\foreach \y in {0,1,...,15}
+%	   \draw [help lines] (0,\y) node [left,%
+%	          font=\footnotesize] {$\y$} -- (0,\y);
+
+	% Define style for spring
+	\tikzstyle{springshape}=[decoration={aspect=0.6, segment length=1.5mm, amplitude=1mm, coil}, decorate];
+	\newcommand{\spring}[3]{%
+		% pass 3 arguments:
+		% arg1: #1 coordinate x; arg2: #2 coordiante y; arg3: #3 number of componets
+		\coordinate (attachleftside) at ({#1},{#2});
+		\coordinate (startspring) at ($(attachleftside) + (0,0.25)$);
+		\coordinate	(endspring) at ($(startspring) + (0,2)$);
+		\coordinate	(attachrightside) at ($(endspring) + (0,0.25)$);
+		\draw (attachleftside) -- (startspring);
+		\draw [springshape] (startspring) -- (endspring) node[draw=none,pos=0.5, left] (){$\frac{k_{#3}}{2}$};
+		\draw (endspring) -- (attachrightside);
+	}
+
+	\newcommand{\shortspring}[3]{%
+		% pass 3 arguments:
+		% arg1: #1 coordinate x; arg2: #2 coordiante y; arg3: #3 number of componets
+		\coordinate (attachleftside) at ({#1},{#2});
+		\coordinate (startspring) at ($(attachleftside) + (0,0.25)$);
+		\coordinate	(endspring) at ($(startspring) + (0,1)$);
+		\coordinate	(attachrightside) at ($(endspring) + (0,0.25)$);
+		\draw (attachleftside) -- (startspring);
+		\draw [springshape] (startspring) -- (endspring) node[draw=none,pos=0.5,left] (){$k_{#3}$};
+		\draw (endspring) -- (attachrightside);
+	}
+
+	% Define style for dampers
+	\tikzstyle{dampshape}=[decoration={markings, mark connection node=dmp,
+	  mark=at position 0.5 with
+	  {
+	    \node (dmp) [inner sep=0pt,transform shape,rotate=-90,minimum width=15pt,minimum height=3pt,draw=none] {};
+	    \draw  ($(dmp.north east)+(2pt,0)$) -- (dmp.south east) -- (dmp.south west) -- ($(dmp.north west)+(2pt,0)$);
+	    \draw ($(dmp.north)+(0,-5pt)$) -- ($(dmp.north)+(0,5pt)$);
+	  }
+	}, decorate]
+	\newcommand{\dampers}[3]{%
+		% pass 3 arguments:
+		% arg1: #1 coordinate x; arg2: #2 coordiante y; arg3: #3 number of componets
+		\coordinate (attachleftside) at ({#1},{#2});
+		\coordinate (startdamp) at ($(attachleftside) + (0,0.25)$);
+		\coordinate	(enddamp) at ($(startdamp) + (0,1)$);
+		\coordinate	(attachrightside) at ($(enddamp) + (0,0.25)$);
+		\draw (attachleftside) -- (startdamp);
+		\draw [{dampshape}] (startdamp) -- (enddamp) node[draw=none,pos=0.75, right] (){$c_{#3}$};
+		\draw (enddamp) -- (attachrightside);
+	}
+
+	% Define ground
+	\tikzstyle{ground}=[fill,pattern=north east lines,draw=none,minimum height=0.2cm];
+	\tikzstyle{groundc}=[fill,pattern=north east lines,draw=none,minimum height=0.2cm];
+
+	% generate plot
+	\begin{scope}
+		\draw (4,4.5) rectangle (11,7) node[draw=none,pos=0.5] () {Machine $m_{1}$};
+		\draw (6.5,2.5) rectangle (8.5,1.5) node[draw=none,pos=0.5] () {$m_{2}$};
+		\spring{5}{1}{1};
+		\spring{10}{1}{1};
+		\shortspring{7}{2.5}{2};
+		\dampers{8}{2.5}{1};
+		\draw (5,0) -- (5,1);
+		\draw (5,3.5) -- (5,4.5);
+		\draw  (10,0) -- (10,1);
+		\draw (10,3.5) -- (10,4.5);
+		\draw(7,4)--(7,4.5);
+		\draw(8,4)--(8,4.5);
+		\draw [groundc]  (4,0) rectangle (11,-0.2);
+		\draw [dashed] (6.25,4.25) rectangle(8.75,1.25);
+		\draw [-stealth] (7.5,7.5) -- (7.5,7)node[draw=none,pos=0.5, above right] () {$u$};
+		\draw [-stealth] (11.5,5.75) -- (11.5,5.25)node[draw=none,pos=0.5, above right] () {$q_1$};
+		\draw [-stealth] (9,2) -- (9,1.50)node[draw=none,pos=-0.25, above] () {$q_2$};
+	\end{scope}
+	\end{tikzpicture}
+	\caption{Representation of the harmonic absorber.}
+	\label{fig:system}
+\end{figure}
+The equations of motion for this two-degrees of freedom system can easily
+obtained using a Lagrange formulation and can be conveniently written in the
+following matrix form:
+\begin{equation}
+	\label{eq:matrixform}
+	\begin{bmatrix}
+		m_1 & 0 \\
+		0 	&	m_2 \\
+	\end{bmatrix}
+	\begin{Bmatrix}
+		\ddot{q_1}\\
+		\ddot{q_2}\\
+	\end{Bmatrix} +
+	\begin{bmatrix}
+		c_2 & -c_2 \\
+		-c_2 	&	c_2 \\
+	\end{bmatrix}
+	\begin{Bmatrix}
+		\dot{q_1}\\
+		\dot{q_2}\\
+	\end{Bmatrix}+
+	\begin{bmatrix}
+		k_1+k_2 & -k_2 \\
+		-k_2 	&	k_2 \\
+	\end{bmatrix}
+	\begin{Bmatrix}
+		q_1\\
+		q_2\\
+	\end{Bmatrix}
+	=
+	\begin{bmatrix}
+		u \\
+		0 \\
+	\end{bmatrix}
+\end{equation}
+
 
 \section{Answer}
 \subsection{1}
-Starting from the equation of motion, seen in the equation, we obtain the
-state space representation as below:
-
+Starting from the equation of motion, seen in the equation \eqref{eq:matrixform},
+we obtain the state space representation as below:
 \[
 	A =
 	\begin{bmatrix}
