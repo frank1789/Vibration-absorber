@@ -16,9 +16,9 @@ k2 = 2e3;
 c2 = 30;
 
 %% Component equation of motion
-M = [m1 0; 0 m2]; % Defining Mass matrix
-Cdamp = [c2 -c2; -c2 c2]; % Damping matrix
-K = [k1+k2 -k2; -k2 k2]; % Stiffness matrix
+M = [m1 0; 0 m2];           % Defining Mass matrix
+Cdamp = [c2 -c2; -c2 c2];   % Damping matrix
+K = [k1+k2 -k2; -k2 k2];    % Stiffness matrix
 
 %% Specify the state-space model
 % Considering the system as time invariant, these equations can also be
@@ -42,20 +42,19 @@ D = 0;
 sys = ss(A,B,C,D);
 
 %% Convert State-Space Model to Transfer Function
-tf(sys)
-
-figure(101)
-subplot(2,1,1)
-step(sys)
-subplot(2,1,2)
-impulse(sys)
-
-figure(102)
+figure('units','normalized','outerposition',[0 0 1 1])
 opts = bodeoptions;
 opts.Grid = 'on';
 opts.MagUnits = 'abs';
 bodeplot(tf(sys),opts,'g')
 
+if ~exist('bode.eps')
+    print('bode','-depsc','-r0')
+end
+close all
+[mag, phase, wout] = bode(sys);
+peak = max(mag);
+fprintf("%d\n",peak);
 %% Lyapunot stability as an LMI problem
 % clear the internal memory of YALMIP
 yalmip('clear')
@@ -86,8 +85,8 @@ P = double(P); % extract the result
 disp(P);
 
 % check that is a proper Lyapunov function
-[V,E] = eig(A' * P + P * A);
-disp(V); % V of right eigenvectors
+[E] = eig(A);
+% disp(V); % V of right eigenvectors
 disp(E); % E of eigenvalues
 
 % check the constraint

@@ -6,11 +6,11 @@ It consists of a mass and a spring attached to the main (or original) mass that
 needs to be protected from vibration. Vibration absorbers are commonly used in a
 variety of applications which include sanders, saws, internal combustion engines
 and high-voltage transmission lines. A sketch of the system is pictured in
-Figure \ref{fig:system}.
-%
+Figure \ref{fig:system}.\linebreak
+
 \begin{figure}[!h]
 	\centering
-	\begin{tikzpicture}[baseline=0.5\linewidth]
+	\begin{tikzpicture}[scale=0.85]
 %	\draw[help lines] (0,0) grid [step = 5 mm](15,15);
 %	\foreach \x in {0,1,...,15}
 %	   \draw [help lines] (\x,0) node [below,%
@@ -94,7 +94,7 @@ Figure \ref{fig:system}.
 	\caption{Representation of the harmonic absorber.}
 	\label{fig:system}
 \end{figure}
-The equations of motion for this two-degrees of freedom system can easily
+\noindent The equations of motion for this two-degrees of freedom system can easily
 obtained using a Lagrange formulation and can be conveniently written in the
 following matrix form:
 \begin{equation}
@@ -162,24 +162,34 @@ was solved numerically, obtaining the solution from the Lyapunov inequality for
  \(\mathbf{P}\) given in the matrix \eqref{eq:valuep} is obtained.
  \begin{equation}
  	\label{eq:valuep}
- 	\begin{bmatrix*}[l]
- 		603.3417	&   -8.5265	&    0.1252	&   -5.0157\\[5pt]
-		-8.5265	&  128.7847	&    2.8368	&    0.6276\\[5pt]
-		0.1252	&    2.8368	&    3.9082	&    0.5233\\[5pt]
+ 	\begin{bmatrix*}[r]
+ 		603.3417	&   -8.5265	&    0.1252	&   -5.0157\\
+		-8.5265	&  128.7847	&    2.8368	&    0.6276\\
+		0.1252	&    2.8368	&    3.9082	&    0.5233\\
 		-5.0157	&    0.6276	&    0.5233	&    1.1363
 	\end{bmatrix*}
 \end{equation}
 
+\begin{equation}
+	\label{eq:eigvalue}
+	\begin{bmatrix*}[r]
+		-0.7983 +14.2721i\\
+  		-0.7983 -14.2721i\\
+  		-0.3517 + 9.8873i\\
+  		-0.3517 - 9.8873i\\
+	\end{bmatrix*}
+\end{equation}
+
 \subsection{3}
-Using the LMI formulation and using the \emph{sdpt3} solver the \(\mathcal{L}_{2}\)
-value of the \(\gamma\) system is estimated.
+Using the LMI formulation\cite{notelmi} and using the ``\emph{sdpt3}" solver the
+ \(\mathcal{L}_{2}\) value of the \(\gamma\) system is estimated.
 Where the minimum value assumed by \(\gamma\) is \num{0.5456e-3}.
 Moreover, the same result was obtained using the matlab toolbox.
 
 \subsection{4}
 From the calculation of the transfer matrix \eqref{eq:tf}, calculated in, we
 obtain the Bode diagram in the figure \ref{fig:bodeplot}, where we can see that
-the peak has a value of \num{0.5456e-3}.
+the peak has a value of \num{0.5440015e-03}.
 \begin{align}
 	\label{eq:tf}
 	\begin{split}
@@ -215,4 +225,4 @@ One common way of measuring approximation quality is by comparing system
 responses \(y_{0} = y_{0}(t)\) and \(\hat{y}_{0} = \hat{y}_{0}(t)\) to a
 particular ``testing" input \(f_{0} = f_{0}(t)\).
 This leads to the so-called H-Infinity norm of the difference
- \(H(s) = G(s) - \hat{G}(s)\) as the approximation error measure of choice.
+ \(H(s) = G(s) - \hat{G}(s)\) as the approximation error measure of choice.\cite{l2gain}

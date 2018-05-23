@@ -5,7 +5,7 @@
 \pagenumbering{arabic}
 \usepackage{setspace}
 %\onehalfspace
-\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry}
+\usepackage[hmarginratio=1:1,top=22mm,columnsep=20pt]{geometry}
 \usepackage{fancyhdr}
 \usepackage{multirow}
 \usepackage{multicol}
@@ -64,9 +64,9 @@
 % Allows abstract customization
 \usepackage{abstract}
 % Set the "Abstract" text to bold
-\renewcommand{\abstractnamefont}{\normalfont\bfseries}
+%\renewcommand{\abstractnamefont}{\normalfont\bfseries}%
 % Set the abstract itself to small italic text
-\renewcommand{\abstracttextfont}{\normalfont\small\itshape}
+%\renewcommand{\abstracttextfont}{\normalfont\small\itshape}
 % Allows customization of titles
 \usepackage{titlesec}
 % Roman numerals for the sections
@@ -94,22 +94,21 @@
 %-------------------------------------------------------------------------------
 %	TITLE SECTION
 %-------------------------------------------------------------------------------
-\setlength{\droptitle}{-4\baselineskip} % Move the title up
-\pretitle{\begin{center}\Huge\bfseries} % Article title formatting
-\posttitle{\end{center}} 								% Article title closing formatting
-\title{TITOLO DA INSERIRE} 							% Article title %TODO scegliere e inserire titolo
+
+\title{\LARGE \bf Automatic Control - Final Project}
 \author{%
 	\textsc{Francesco Argentieri}\thanks{ID: 183892}\\[1ex] % Your name
-	\normalsize Università di Trento \\ % Your institution
+	\normalsize University of Trento \\ % Your institution
 	% Your email address
 	\normalsize \href{mailto:francesco.argentieri@studenti.unitn.it}{francesco.argentieri@studenti.unitn.it}
 	}
-\date{} % Leave empty to omit a date
-%\renewcommand{\maketitlehookd}{\input{abstract}}
+\date{}
 %-------------------------------------------------------------------------------
 \begin{document}
 	% Print the title
 	\maketitle
+	\setlength{\droptitle}{-5cm}
+	%
 	\input{Exercise}
 %-------------------------------------------------------------------------------
 %	Bibliography
